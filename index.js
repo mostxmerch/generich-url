@@ -65,13 +65,12 @@ app.post('/player/growid/checktoken', (req, res) => {
 
 app.all('/player/growid/login/validate', (req, res) => {
     const { _token, growId, password, email } = req.body;
-
-    const b64_ = Buffer.from(
-        `_token=${Buffer.from(_token).toString('base64')}&growId=${growId}&password=${password}&email=${email || ""}`
+     const token = Buffer.from(
+        `_token=${_token}&growId=${growId}&password=${password}&email=${email || ""}`,
     ).toString('base64');
 
     res.send(
-        `{"status":"success","message":"Account Validated.","token":"${b64_}","url":"","accountType":"growtopia"}`
+        `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`
     );
 });
 
@@ -82,3 +81,4 @@ app.get('/', function (req, res) {
 app.listen(5000, function () {
     console.log('Listening on port 5000');
 });
+
